@@ -38,7 +38,7 @@ public class ticTacToe {
             availableMoves.add(i);
         }
         
-        // Initialise isPlayerTurn to True for first turn
+        // Initialise isPlayerTurn to true for first turn
         boolean isPlayerTurn = true;
                 
         // ---------------------------- GAME LOOP -----------------------------
@@ -46,6 +46,7 @@ public class ticTacToe {
         while (!hasWon && !availableMoves.isEmpty()) {
             if (isPlayerTurn == true) {
                 int playerMove = getPlayerMove(scanner, availableMoves);
+                
                 // Once player move has been chosen and validated, remove the entry from availableMoves
                 availableMoves.remove((Object) playerMove);
                 
