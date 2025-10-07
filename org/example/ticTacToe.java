@@ -63,6 +63,13 @@ public class ticTacToe {
                 Random random = new Random();
                 int randomIndex = random.nextInt(availableMoves.size());
                 int computerMove = availableMoves.get(randomIndex);
+                availableMoves.remove(randomIndex);
+                
+                updateGridWithMove(grid, computerMove, computerSymbol);
+                
+                outputGrid(grid);
+                
+                isPlayerTurn = true;
             }
         }
     }
