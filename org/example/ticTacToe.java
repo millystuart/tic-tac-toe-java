@@ -6,14 +6,12 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class ticTacToe {
-    
     // This is an example grid used to show the user how to reference each node
     final static char[][] GRID_INDEXES = {{'1', '2', '3'},
                                           {'4', '5', '6'},
                                           {'7', '8', '9'}};
 
     public static void main(String[] args) {
-        
         // Define 2D array that will hold the state of the grid.
         // A grid node can hold X, O or ' '
         char[][] grid = {{' ', ' ', ' '},
@@ -46,7 +44,6 @@ public class ticTacToe {
         // ---------------------------- GAME LOOP -----------------------------
         
         while (!hasWon && !availableMoves.isEmpty()) {
-            
             if (isPlayerTurn == true) {
                 int playerMove = getPlayerMove(scanner, availableMoves);
                 // Once player move has been chosen and validated, remove the entry from availableMoves
@@ -85,7 +82,7 @@ public class ticTacToe {
             }
         }
         
-        if (isPlayerTurn == false) {
+        if (!isPlayerTurn) {
             System.out.println("Congratulations! You beat the highly intelligent computer!");
         }
         else {
@@ -94,7 +91,6 @@ public class ticTacToe {
     }
     
     private static boolean checkForWin(char[][] grid, char symbol) {
-        
         // Start by checking every row of the grid
         for (int row = 0; row < 3; row++) {
             ArrayList<Character> rowCheck = new ArrayList<Character>();
@@ -158,7 +154,6 @@ public class ticTacToe {
     }
 
     private static int getPlayerMove(Scanner scanner, ArrayList<Integer> availableMoves) {
-        
         // Variable accessible across method to hold user's validated move (initialised to dummy value -1)
         int move = -1;
          
@@ -166,19 +161,18 @@ public class ticTacToe {
         String userInput = scanner.nextLine();
         
         // Output gridIndexes if user types HELP:
-        if (userInput.equals("HELP")) {
+        if (userInput.equalsIgnoreCase("HELP")) {
             outputGrid(GRID_INDEXES);
             return getPlayerMove(scanner, availableMoves);
         }
         else {
-            
             try {
                 move = Integer.parseInt(userInput);
             } catch (NumberFormatException e) {
                 System.out.println("Illegal value inputted. Please ensure that your choice is a number.");
                 return getPlayerMove(scanner, availableMoves);
             }
-            
+   
             if (move > 9 || move <= 0 ) {
                 System.out.println("Illegal position on the grid. Please ensure that your choice is between 1 & 9 inclusive");
                 return getPlayerMove(scanner, availableMoves);
@@ -194,7 +188,6 @@ public class ticTacToe {
     }
     
     private static void updateGridWithMove(char[][] grid, int move, char symbol) {
-        
         switch (move) {
             case 1:
                 grid[0][0] = symbol;
@@ -223,17 +216,12 @@ public class ticTacToe {
             case 9:
                 grid[2][2] = symbol;
                 break;
-            default:
-                System.out.println("ERROR: none of the cases were entered, despite validation");
-                break;
         }
     }
     
     private static char choosePlayerSymbol(Scanner scanner) {
-        
         System.out.println("Would you like to play as a nought (O) or a cross (X)?");
-        String userInput = scanner.nextLine().trim();
-        userInput = userInput.toUpperCase();
+        String userInput = scanner.nextLine().trim().toUpperCase();
         
         if (!userInput.equals("X") && !userInput.equals("O")) {
             System.out.println("Please choose between O or X only");
@@ -244,7 +232,6 @@ public class ticTacToe {
     }
     
     private static void outputGrid(char[][] grid) {
-        
         System.out.println(" " + grid[0][0] + " | " + grid[0][1] + " | " + grid[0][2]);
         System.out.println("---+---+---");
         System.out.println(" " + grid[1][0] + " | " + grid[1][1] + " | " + grid[1][2]);
