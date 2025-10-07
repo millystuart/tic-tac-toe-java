@@ -57,6 +57,8 @@ public class ticTacToe {
                 outputGrid(grid);
                 
                 isPlayerTurn = false;
+                
+                hasWon = checkForWin(grid, playerSymbol);
             }
             else {
                 // Computer's turn!
@@ -78,7 +80,16 @@ public class ticTacToe {
                 outputGrid(grid);
                 
                 isPlayerTurn = true;
+                
+                hasWon = checkForWin(grid, computerSymbol);
             }
+        }
+        
+        if (isPlayerTurn == false) {
+            System.out.println("Congratulations! You beat the highly intelligent computer!");
+        }
+        else {
+            System.out.println("GAME OVER- you were beat by the highly unintelligent computer. How impressive!");
         }
     }
     
@@ -89,11 +100,10 @@ public class ticTacToe {
             ArrayList<Character> rowCheck = new ArrayList<Character>();
             
             for (int col = 0; col < 3; col++) {
-                
                 char charAtPos = grid[row][col];
                 
                 if (charAtPos == symbol) {
-                    rowCheck.add(grid[row][col]);
+                    rowCheck.add(charAtPos);
                 }
             }
             
@@ -107,11 +117,10 @@ public class ticTacToe {
             ArrayList<Character> colCheck = new ArrayList<Character>();
             
             for (int row = 0; row < 3; row++) {
-                
                 char charAtPos = grid[row][col];
                 
                 if (charAtPos == symbol) {
-                    colCheck.add(grid[row][col]);
+                    colCheck.add(charAtPos);
                 }
             }
             
@@ -119,6 +128,33 @@ public class ticTacToe {
                 return true;
             }
         }
+        
+        // Finally, check diagonals, both with positive gradient and negative
+        ArrayList<Character> diagCheckPos = new ArrayList<Character>();
+        for (int col = 0; col < 3; col++) {
+            char charAtPos = grid[2-col][col];
+            if (charAtPos == symbol) {
+                diagCheckPos.add(charAtPos);
+            }
+        }
+        
+        if (diagCheckPos.size() == 3) {
+            return true;
+        }  
+        
+        ArrayList<Character> diagCheckNeg = new ArrayList<Character>();
+        for (int rowCol = 0; rowCol < 3; rowCol++) {
+            char charAtPos = grid[rowCol][rowCol];
+            if (charAtPos == symbol) {
+                diagCheckNeg.add(charAtPos);
+            }
+        }
+        
+        if (diagCheckNeg.size() == 3) {
+            return true;
+        }
+        
+        return false;
     }
 
     private static int getPlayerMove(Scanner scanner, ArrayList<Integer> availableMoves) {
