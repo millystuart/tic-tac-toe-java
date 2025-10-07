@@ -45,7 +45,7 @@ public class ticTacToe {
                 
         // ---------------------------- GAME LOOP -----------------------------
         
-        while (hasWon == false) {
+        while (!hasWon && !availableMoves.isEmpty()) {
             
             if (isPlayerTurn == true) {
                 int playerMove = getPlayerMove(scanner, availableMoves);
