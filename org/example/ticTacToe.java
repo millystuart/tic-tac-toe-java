@@ -17,6 +17,8 @@ public class ticTacToe {
                          {' ', ' ', ' '},
                          {' ', ' ', ' '}};
         
+        // ----------------------- INITIALISATION STEPS -----------------------
+        
         // Define scanner to take user input
         Scanner scanner = new Scanner(System.in);
         
@@ -25,12 +27,22 @@ public class ticTacToe {
         // Give the computer the opposing symbol
         char computerSymbol = (playerSymbol == 'X') ? 'O' : 'X';
         
-        // Get the player's next move location
-        int playerMove = getPlayerMove(scanner);
+        // Set win tracking boolean to false for initialisation
+        boolean hasWon = false;
         
-        updateGridWithMove(grid, playerMove, playerSymbol);
+        // Initialise isPlayerTurn to True for first turn
+        boolean isPlayerTurn = true;
+                
+        // ---------------------------- GAME LOOP -----------------------------
         
-        outputGrid(grid);
+        while (hasWon == false) {
+            
+            int playerMove = getPlayerMove(scanner);
+            
+            updateGridWithMove(grid, playerMove, playerSymbol);
+            
+            outputGrid(grid);
+        }
     }
 
     private static int getPlayerMove(Scanner scanner) {
