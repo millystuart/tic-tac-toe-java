@@ -5,25 +5,25 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class ticTacToe {
+public class TicTacToe {
     // This is an example grid used to show the user how to reference each node
     final static char[][] GRID_INDEXES = {{'1', '2', '3'},
                                           {'4', '5', '6'},
                                           {'7', '8', '9'}};
 
     public static void main(String[] args) {
+        // ----------------------- INITIALISATION STEPS -----------------------
+
         // Define 2D array that will hold the state of the grid.
         // A grid node can hold X, O or ' '
         char[][] grid = {{' ', ' ', ' '},
                          {' ', ' ', ' '},
                          {' ', ' ', ' '}};
-        
-        // ----------------------- INITIALISATION STEPS -----------------------
-        
+                
         // Define scanner to take user input
         Scanner scanner = new Scanner(System.in);
         
-        // Define symbol player will use to play (' ' dummy value as default)
+        // Define symbol player will use to play
         char playerSymbol = choosePlayerSymbol(scanner);
         // Give the computer the opposing symbol
         char computerSymbol = (playerSymbol == 'X') ? 'O' : 'X';
@@ -39,7 +39,7 @@ public class ticTacToe {
         }
         
         // Initialise isPlayerTurn to true for first turn
-        boolean isPlayerTurn = true;
+        boolean isPlayerTurn = false;
                 
         // ---------------------------- GAME LOOP -----------------------------
         
