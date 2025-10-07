@@ -19,7 +19,10 @@ public class ticTacToe {
         
         // Define scanner to take user input
         Scanner scanner = new Scanner(System.in);
-                  
+        
+        // Define symbol player will use to play (' ' dummy value as default)
+        char playerSymbol = choosePlayerSymbol(scanner);
+        
         getPlayerMove(grid, scanner);
         
         outputGrid(grid);
@@ -94,6 +97,20 @@ public class ticTacToe {
                 System.out.println("ERROR: none of the cases were entered, despite validation");
                 break;
         }
+    }
+    
+    private static char choosePlayerSymbol(Scanner scanner) {
+        
+        System.out.println("Would you like to play as a nought (O) or a cross (X)?");
+        String userInput = scanner.nextLine().trim();
+        userInput = userInput.toUpperCase();
+        
+        if (!userInput.equals("X") && !userInput.equals("O")) {
+            System.out.println("Please choose between O or X only");
+            return choosePlayerSymbol(scanner);
+        }
+        
+        return userInput.charAt(0);
     }
     
     private static void outputGrid(char[][] grid) {
