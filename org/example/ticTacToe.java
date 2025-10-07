@@ -45,15 +45,17 @@ public class ticTacToe {
         
         while (hasWon == false) {
             
-            if (isPlayerTurn = true) {
+            if (isPlayerTurn == true) {
                 int playerMove = getPlayerMove(scanner, availableMoves);
+                // Once player move has been chosen and validated, remove the entry from availableMoves
+                availableMoves.remove((Object) playerMove);
                 
                 updateGridWithMove(grid, playerMove, playerSymbol); 
                 
                 outputGrid(grid);
                 
                 isPlayerTurn = false;
-            }            
+            }
         }
     }
 
@@ -82,7 +84,12 @@ public class ticTacToe {
             if (move > 9 || move <= 0 ) {
                 System.out.println("Illegal position on the grid. Please ensure that your choice is between 1 & 9 inclusive");
                 return getPlayerMove(scanner, availableMoves);
-            }            
+            }
+            
+            if (!availableMoves.contains(move)) {
+                System.out.println("The position you chose is already occupied by a symbol. Please choose an unoccupied space");
+                return getPlayerMove(scanner, availableMoves);
+            }
         }
         
         return move;
