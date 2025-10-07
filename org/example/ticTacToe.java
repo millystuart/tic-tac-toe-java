@@ -3,6 +3,7 @@ package org.example;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class ticTacToe {
     
@@ -59,6 +60,13 @@ public class ticTacToe {
             }
             else {
                 // Computer's turn!
+                System.out.println("The computer is now taking its turn...");
+                try {
+                    TimeUnit.SECONDS.sleep(3);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                
                 // Computer will decide randomly based on the available positions (it's very smart)
                 Random random = new Random();
                 int randomIndex = random.nextInt(availableMoves.size());
