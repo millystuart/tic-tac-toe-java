@@ -91,64 +91,15 @@ public class ticTacToe {
     }
     
     private static boolean checkForWin(char[][] grid, char symbol) {
-        // Start by checking every row of the grid
-        for (int row = 0; row < 3; row++) {
-            ArrayList<Character> rowCheck = new ArrayList<Character>();
-            
-            for (int col = 0; col < 3; col++) {
-                char charAtPos = grid[row][col];
-                
-                if (charAtPos == symbol) {
-                    rowCheck.add(charAtPos);
-                }
-            }
-            
-            if (rowCheck.size() == 3) {
-                return true;
-            }
-        }
-        
-     // Next check every column of the grid
-        for (int col = 0; col < 3; col++) {
-            ArrayList<Character> colCheck = new ArrayList<Character>();
-            
-            for (int row = 0; row < 3; row++) {
-                char charAtPos = grid[row][col];
-                
-                if (charAtPos == symbol) {
-                    colCheck.add(charAtPos);
-                }
-            }
-            
-            if (colCheck.size() == 3) {
-                return true;
-            }
+        // Start by checking every row and column of the grid
+        for (int i = 0; i < 3; i++) {
+            if (grid[i][0] == symbol && grid[i][1] == symbol && grid[i][2] == symbol) return true;
+            if (grid[0][i] == symbol && grid[1][i] == symbol && grid[2][i] == symbol) return true;
         }
         
         // Finally, check diagonals, both with positive gradient and negative
-        ArrayList<Character> diagCheckPos = new ArrayList<Character>();
-        for (int col = 0; col < 3; col++) {
-            char charAtPos = grid[2-col][col];
-            if (charAtPos == symbol) {
-                diagCheckPos.add(charAtPos);
-            }
-        }
-        
-        if (diagCheckPos.size() == 3) {
-            return true;
-        }  
-        
-        ArrayList<Character> diagCheckNeg = new ArrayList<Character>();
-        for (int rowCol = 0; rowCol < 3; rowCol++) {
-            char charAtPos = grid[rowCol][rowCol];
-            if (charAtPos == symbol) {
-                diagCheckNeg.add(charAtPos);
-            }
-        }
-        
-        if (diagCheckNeg.size() == 3) {
-            return true;
-        }
+        if (grid[0][0] == symbol && grid[1][1] == symbol && grid[2][2] == symbol) return true;
+        if (grid[0][2] == symbol && grid[1][1] == symbol && grid[2][0] == symbol) return true;
         
         return false;
     }
