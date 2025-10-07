@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ticTacToe {
     
@@ -55,6 +56,13 @@ public class ticTacToe {
                 outputGrid(grid);
                 
                 isPlayerTurn = false;
+            }
+            else {
+                // Computer's turn!
+                // Computer will decide randomly based on the available positions (it's very smart)
+                Random random = new Random();
+                int randomIndex = random.nextInt(availableMoves.size());
+                int computerMove = availableMoves.get(randomIndex);
             }
         }
     }
