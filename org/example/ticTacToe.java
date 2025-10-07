@@ -82,9 +82,43 @@ public class ticTacToe {
         }
     }
     
-    private static boolean checkForWin() {
-        // Start by checking
+    private static boolean checkForWin(char[][] grid, char symbol) {
         
+        // Start by checking every row of the grid
+        for (int row = 0; row < 3; row++) {
+            ArrayList<Character> rowCheck = new ArrayList<Character>();
+            
+            for (int col = 0; col < 3; col++) {
+                
+                char charAtPos = grid[row][col];
+                
+                if (charAtPos == symbol) {
+                    rowCheck.add(grid[row][col]);
+                }
+            }
+            
+            if (rowCheck.size() == 3) {
+                return true;
+            }
+        }
+        
+     // Next check every column of the grid
+        for (int col = 0; col < 3; col++) {
+            ArrayList<Character> colCheck = new ArrayList<Character>();
+            
+            for (int row = 0; row < 3; row++) {
+                
+                char charAtPos = grid[row][col];
+                
+                if (charAtPos == symbol) {
+                    colCheck.add(grid[row][col]);
+                }
+            }
+            
+            if (colCheck.size() == 3) {
+                return true;
+            }
+        }
     }
 
     private static int getPlayerMove(Scanner scanner, ArrayList<Integer> availableMoves) {
@@ -156,31 +190,6 @@ public class ticTacToe {
             default:
                 System.out.println("ERROR: none of the cases were entered, despite validation");
                 break;
-        }
-    }
-    
-    private static char getValueAtLocation(char[][] grid, int location) {
-        
-        switch (location) {
-            case 1:
-                return grid[0][0];
-            case 2:
-                return grid[0][1];
-            case 3:
-                return grid[0][2];
-            case 5:
-                return grid[1][1];
-            case 6:
-                return grid[1][2];
-            case 7:
-                return grid[2][0];
-            case 8:
-                return grid[2][1];
-            case 9:
-                return grid[2][2];
-            default:
-                System.out.println("ERROR: inputted location is invalid");
-                return '!';
         }
     }
     
