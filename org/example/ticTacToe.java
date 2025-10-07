@@ -82,11 +82,16 @@ public class ticTacToe {
             }
         }
         
-        if (!isPlayerTurn) {
-            System.out.println("Congratulations! You beat the highly intelligent computer!");
+        if (hasWon == true) {
+            if (!isPlayerTurn) {
+                System.out.println("Congratulations! You beat the highly intelligent computer!");
+            }
+            else {
+                System.out.println("GAME OVER- you were beat by the highly unintelligent computer. How impressive!");
+            }
         }
         else {
-            System.out.println("GAME OVER- you were beat by the highly unintelligent computer. How impressive!");
+            System.out.println("It is a draw!");
         }
     }
     
