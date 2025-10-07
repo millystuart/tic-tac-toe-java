@@ -1,69 +1,67 @@
-package org.example;
+package src.org.example;
 
 import java.util.Scanner;
 
 public class ticTacToe {
     
-    // This is an example grid used to show the references to each node
-    static char[][] gridIndexes = {{'1', '2', '3'},
-                                   {'4', '5', '6'},
-                                   {'7', '8', '9'}};
-    
-    // Define 2D array that will hold the state of the grid.
-    // A grid node can hold X, O or ' '
-    static char[][] grid = {{' ', ' ', ' '},
-                            {' ', ' ', ' '},
-                            {' ', ' ', ' '}};
+    // This is an example grid used to show the user how to reference each node
+    final static char[][] GRID_INDEXES = {{'1', '2', '3'},
+                                          {'4', '5', '6'},
+                                          {'7', '8', '9'}};
 
     public static void main(String[] args) {
+        
+        // Define 2D array that will hold the state of the grid.
+        // A grid node can hold X, O or ' '
+        char[][] grid = {{' ', ' ', ' '},
+                         {' ', ' ', ' '},
+                         {' ', ' ', ' '}};
         
         // Define scanner to take user input
         Scanner scanner = new Scanner(System.in);
                   
-        playerMove(scanner);
+        getPlayerMove(grid, scanner);
         
         outputGrid(grid);
     }
 
-    private static void playerMove(Scanner scanner) {
+    private static void getPlayerMove(char[][] grid, Scanner scanner) {
         
-        // Variable accessible across method to hold user's validated move
+        // Variable accessible across method to hold user's validated move (initialised to dummy value -1)
         int move = -1;
          
-        // Gather input
         System.out.println("Where would you like to play your next move? (1-9) \n(type HELP to view grid indexes)");
         String userInput = scanner.nextLine();
         
         // Output gridIndexes if user types HELP:
         if (userInput.equals("HELP")) {
-            outputGrid(gridIndexes);
-            playerMove(scanner);
+            outputGrid(GRID_INDEXES);
+            getPlayerMove(grid, scanner);
             return;
         }
-        
         else {
             
             try {
                 move = Integer.parseInt(userInput);
-                
             } catch (NumberFormatException e) {
                 System.out.println("Illegal value inputted. Please ensure that your choice is a number.");
-                playerMove(scanner);
+                getPlayerMove(grid, scanner);
                 return;
             }
             
             if (move > 9 || move <= 0 ) {
                 System.out.println("Illegal position on the grid. Please ensure that your choice is between 1 & 9 inclusive");
-                playerMove(scanner);
+                getPlayerMove(grid, scanner);
                 return;
             }
         }
         
-        updateGridWithMove(move);
+        updateGridWithMove(grid, move);
         return;
     }
     
-    private static void updateGridWithMove(int playerMove) {
+    private static void updateGridWithMove(char[][] grid, int playerMove) {
+        
         switch (playerMove) {
             case 1:
                 grid[0][0] = 'X';
