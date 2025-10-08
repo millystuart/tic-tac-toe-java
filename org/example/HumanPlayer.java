@@ -12,10 +12,18 @@ public class HumanPlayer implements Player {
     private NodeState symbol;
     private Scanner scanner;
     
+    /**
+     * Getter for player's symbol.
+     * @return player's chosen symbol (NodeState).
+     */
     public NodeState getPlayerSymbol() {
         return symbol;
     }
     
+    /**
+     * Constructor.
+     * @param grid grid object.
+     */
     public HumanPlayer(Grid grid) {
         this.grid = grid;
         scanner = new Scanner(System.in);        

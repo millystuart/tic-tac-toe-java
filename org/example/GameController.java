@@ -14,6 +14,9 @@ public class GameController {
     private boolean isWinner;
     private boolean isPlayerTurn;
     
+    /**
+     * Constructor.
+     */
     public GameController() {
         grid = new Grid();
         player = new HumanPlayer(grid);

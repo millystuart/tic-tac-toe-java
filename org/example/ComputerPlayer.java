@@ -12,10 +12,19 @@ public class ComputerPlayer implements Player {
     private Grid grid;
     private NodeState symbol;
     
+    /**
+     * Getter for computer's symbol.
+     * @return computer's symbol (NodeState)
+     */
     public NodeState getSymbol() {
         return symbol;
     }
-
+    
+    /**
+     * Constructor.
+     * @param grid grid object.
+     * @param playerSymbol player's chosen symbol, used so that computer can choose opposing symbol.
+     */
     public ComputerPlayer(Grid grid, NodeState playerSymbol) {
         this.grid = grid;
         // Set the computer's symbol to the remaining symbol after the player's choice

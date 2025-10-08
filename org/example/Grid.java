@@ -7,6 +7,9 @@ public class Grid {
     
     private NodeState[][] grid;
     
+    /**
+     * Constructor.
+     */
     public Grid() {
         // Define grid as a 2D array of NodeStates with nine slots, each initialised to EMPTY
         grid = new NodeState[3][3];
