@@ -6,51 +6,35 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    // This is an example grid used to show the user how to reference each node
-    // DO NOT CONFUSE THIS WITH THE ACTUAL GRID. This is simply for visual purposes only (outputted to the console)
-    final static char[][] GRID_INDEXES = {{'1', '2', '3'},
-                                          {'4', '5', '6'},
-                                          {'7', '8', '9'}};
     
-    // Define an enum to hold all of the possible states a grid node can be in
-    enum NodeState {
-        X,
-        O,
-        EMPTY
-    }
-
     public static void main(String[] args) {
         // ----------------------- INITIALISATION STEPS -----------------------
-
-        // Define 2D array that will hold the state of the grid.
-        // A grid node can hold X, O or ' '
-        NodeState[][] grid = {{NodeState.EMPTY, NodeState.EMPTY, NodeState.EMPTY},
-                              {NodeState.EMPTY, NodeState.EMPTY, NodeState.EMPTY},
-                              {NodeState.EMPTY, NodeState.EMPTY, NodeState.EMPTY}};
-                
+        
         // Define scanner to take user input
         Scanner scanner = new Scanner(System.in);
         
-        // Define symbol player will use to play
-        NodeState playerSymbol = choosePlayerSymbol(scanner);
-        // Give the computer the opposing symbol
-        NodeState computerSymbol = (playerSymbol == NodeState.X) ? NodeState.O : NodeState.X;
+        // Make a new grid to hold the state of the game
+        Grid grid = new Grid();
         
-        // Define ArrayList to hold the open moves on the grid (all are available by default
+        // Holds the available moves on the grid
         ArrayList<Integer> availableMoves = new ArrayList<Integer>();
         // Populate
         for (int i = 1; i < 10; i++) {
             availableMoves.add(i);
         }
         
-        // Set win-tracking boolean to false for initialisation
+        // Define symbol player will use to play
+        NodeState playerSymbol = choosePlayerSymbol(scanner);
+        // Give the computer the opposing symbol
+        NodeState computerSymbol = (playerSymbol == NodeState.X) ? NodeState.O : NodeState.X;
+        
         boolean hasWon = false;
         
-        // Initialise isPlayerTurn to true for first turn
+        // Initialise isPlayerTurn to false for first turn (computer plays first)
         boolean isPlayerTurn = false;
         
         // At the very beginning of the game, output the empty grid as a reference
-        outputGrid(nodestateToCharGrid(grid));
+        
                 
         // ---------------------------- GAME LOOP -----------------------------
         
@@ -61,13 +45,13 @@ public class Main {
                 // Once player move has been chosen and validated, remove the entry from availableMoves
                 availableMoves.remove((Object) playerMove);
                 
-                updateGridWithMove(grid, playerMove, playerSymbol); 
+                grid.updateGridWithMove(playerMove, playerSymbol); 
                 
-                outputGrid(nodestateToCharGrid(grid));
+                grid.displayGrid();
                 
                 isPlayerTurn = false;
                 
-                hasWon = checkForWin(grid, playerSymbol);
+                hasWon = grid.detectWin(playerSymbol);
             }
             else {
                 // Computer's turn!
@@ -84,13 +68,13 @@ public class Main {
                 int computerMove = availableMoves.get(randomIndex);
                 availableMoves.remove(randomIndex);
                 
-                updateGridWithMove(grid, computerMove, computerSymbol);
+                grid.updateGridWithMove(computerMove, computerSymbol);
                 
-                outputGrid(nodestateToCharGrid(grid));
+                grid.displayGrid();
                 
                 isPlayerTurn = true;
                 
-                hasWon = checkForWin(grid, computerSymbol);
+                hasWon = grid.detectWin(computerSymbol);
             }
         }
         
@@ -109,20 +93,6 @@ public class Main {
         // Close the scanner
         scanner.close();
     }
-    
-    private static boolean checkForWin(NodeState[][] grid, NodeState symbol) {
-        // Start by checking every row and column of the grid
-        for (int i = 0; i < 3; i++) {
-            if (grid[i][0].equals(symbol) && grid[i][1].equals(symbol) && grid[i][2].equals(symbol)) return true;
-            if (grid[0][i].equals(symbol) && grid[1][i].equals(symbol) && grid[2][i].equals(symbol)) return true;
-        }
-        
-        // Finally, check diagonals, both with positive gradient and negative
-        if (grid[0][0].equals(symbol) && grid[1][1].equals(symbol) && grid[2][2].equals(symbol)) return true;
-        if (grid[0][2].equals(symbol) && grid[1][1].equals(symbol) && grid[2][0].equals(symbol)) return true;
-        
-        return false;
-    }
 
     private static int getPlayerMove(Scanner scanner, ArrayList<Integer> availableMoves) {
         // Variable accessible across method to hold user's validated move (initialised to dummy value -1)
@@ -133,7 +103,7 @@ public class Main {
         
         // Output gridIndexes if user types HELP:
         if (userInput.equalsIgnoreCase("HELP")) {
-            outputGrid(GRID_INDEXES);
+            displayHelpGrid();
             return getPlayerMove(scanner, availableMoves);
         }
         else {
@@ -158,38 +128,6 @@ public class Main {
         return move;
     }
     
-    private static void updateGridWithMove(NodeState[][] grid, int move, NodeState symbol) {
-        switch (move) {
-            case 1:
-                grid[0][0] = symbol;
-                break;
-            case 2:
-                grid[0][1] = symbol;
-                break;
-            case 3:
-                grid[0][2] = symbol;
-                break;
-            case 4:
-                grid[1][0] = symbol;
-                break;
-            case 5:
-                grid[1][1] = symbol;
-                break;
-            case 6:
-                grid[1][2] = symbol;
-                break;
-            case 7:
-                grid[2][0] = symbol;
-                break;
-            case 8:
-                grid[2][1] = symbol;
-                break;
-            case 9:
-                grid[2][2] = symbol;
-                break;
-        }
-    }
-    
     private static NodeState choosePlayerSymbol(Scanner scanner) {
         System.out.println("Would you like to play as a nought (O) or a cross (X)?");
         String userInput = scanner.nextLine().trim().toUpperCase();
@@ -203,34 +141,11 @@ public class Main {
         return desiredSymbol;
     }
     
-    private static char[][] nodestateToCharGrid(NodeState[][] grid) {
-        char[][] charGrid = {{' ', ' ', ' '},
-                             {' ', ' ', ' '},
-                             {' ', ' ', ' '}};
-        
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
-                switch (grid[row][col]) {
-                    case X:
-                        charGrid[row][col] = 'X';
-                        break;
-                    case O:
-                        charGrid[row][col] = 'O';
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-        
-        return charGrid;
-    }
-    
-    private static void outputGrid(char[][] grid) {
-        System.out.println(" " + grid[0][0] + " | " + grid[0][1] + " | " + grid[0][2]);
+    private static void displayHelpGrid() {
+        System.out.println(" " + "1" + " | " + "2" + " | " + "3");
         System.out.println("---+---+---");
-        System.out.println(" " + grid[1][0] + " | " + grid[1][1] + " | " + grid[1][2]);
+        System.out.println(" " + "4" + " | " + "5" + " | " + "6");
         System.out.println("---+---+---");
-        System.out.println(" " + grid[2][0] + " | " + grid[2][1] + " | " + grid[2][2]);
+        System.out.println(" " + "7" + " | " + "8" + " | " + "9");
     }
 }
