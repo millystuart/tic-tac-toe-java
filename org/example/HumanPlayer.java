@@ -84,4 +84,8 @@ public class HumanPlayer implements Player {
         System.out.println("---+---+---");
         System.out.println(" " + "7" + " | " + "8" + " | " + "9");
     }
+    
+    public void closeScanner() {
+        scanner.close();
+    }
 }
