@@ -19,8 +19,9 @@ public class GameController {
         player = new HumanPlayer(grid);
         computer = new ComputerPlayer(grid, player.getPlayerSymbol());
         remainingMoves = populateRemainingMoves();
+        
         isWinner = false;
-        isPlayerTurn = false;
+        isPlayerTurn = false; // Computer will make the first move
     }
     
     /**
@@ -66,7 +67,8 @@ public class GameController {
     }
     
     /**
-     * Helper function used to initialise the remainingMoves ArrayList with numbers between 1-9.
+     * Helper function used to initialise the remainingMoves ArrayList with numbers between 1-9 (since all 9 nodes are
+     * available at the beginning of the game).
      * @return An ArrayList populated with integers 1-9.
      */
     private ArrayList<Integer> populateRemainingMoves() {
