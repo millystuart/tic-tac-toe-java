@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class TicTacToe {
+public class Main {
     // This is an example grid used to show the user how to reference each node
     // DO NOT CONFUSE THIS WITH THE ACTUAL GRID. This is simply for visual purposes only (outputted to the console)
     final static char[][] GRID_INDEXES = {{'1', '2', '3'},
