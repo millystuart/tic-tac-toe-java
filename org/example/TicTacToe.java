@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class TicTacToe {
     // This is an example grid used to show the user how to reference each node
+    // DO NOT CONFUSE THIS WITH THE ACTUAL GRID. This is simply for visual purposes only (outputted to the console)
     final static char[][] GRID_INDEXES = {{'1', '2', '3'},
                                           {'4', '5', '6'},
                                           {'7', '8', '9'}};
@@ -98,6 +99,9 @@ public class TicTacToe {
         else {
             System.out.println("It is a draw!");
         }
+        
+        // Close the scanner
+        scanner.close();
     }
     
     private static boolean checkForWin(char[][] grid, char symbol) {
