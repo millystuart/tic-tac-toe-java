@@ -7,6 +7,7 @@ import java.util.Scanner;
  * Handles operations that take player input, as well as player-specific operations.
  */
 public class HumanPlayer implements Player {
+    
     private Grid grid;
     private NodeState symbol;
     private Scanner scanner;
@@ -63,7 +64,7 @@ public class HumanPlayer implements Player {
         System.out.println("Where would you like to play your next move? (1-9) \n(type HELP to view grid indexes)");
         String userInput = scanner.nextLine();
         
-        // Output gridIndexes if user types HELP:
+        // Output help grid if user types HELP
         if (userInput.equalsIgnoreCase("HELP")) {
             displayHelpGrid();
             return getPlayerMove(scanner, availableMoves);

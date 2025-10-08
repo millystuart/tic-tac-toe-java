@@ -5,6 +5,7 @@ package org.example;
  * These include X, O and EMPTY.
  */
 public enum NodeState {
+    
     X,
     O,
     EMPTY

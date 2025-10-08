@@ -8,7 +8,7 @@ public class Grid {
     private NodeState[][] grid;
     
     public Grid() {
-        // Define grid as a 2D array of NodeStates with nine slots, each initialised to EMPTY.
+        // Define grid as a 2D array of NodeStates with nine slots, each initialised to EMPTY
         grid = new NodeState[3][3];
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -56,9 +56,9 @@ public class Grid {
     
     /**
      * Checks each row, column and diagonal to see if a passed symbol occurs three times in a row.
-     * @param grid grid holding the current game state
-     * @param symbol the symbol of the last player who made a move
-     * @return true if a win is detected, or false otherwise
+     * @param grid grid holding the current game state.
+     * @param symbol the symbol of the last player who made a move.
+     * @return true if a win is detected, or false otherwise.
      */
     public boolean detectWin(NodeState symbol) {
         // Start by checking every row and column of the grid
