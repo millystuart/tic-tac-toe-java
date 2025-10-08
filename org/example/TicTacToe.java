@@ -12,6 +12,7 @@ public class TicTacToe {
                                           {'7', '8', '9'}};
 
     public static void main(String[] args) {
+        
         // ----------------------- INITIALISATION STEPS -----------------------
 
         // Define 2D array that will hold the state of the grid.
@@ -28,9 +29,6 @@ public class TicTacToe {
         // Give the computer the opposing symbol
         char computerSymbol = (playerSymbol == 'X') ? 'O' : 'X';
         
-        // Set win tracking boolean to false for initialisation
-        boolean hasWon = false;
-        
         // Define ArrayList to hold the open moves on the grid (all are available by default
         ArrayList<Integer> availableMoves = new ArrayList<Integer>();
         // Populate
@@ -38,8 +36,14 @@ public class TicTacToe {
             availableMoves.add(i);
         }
         
+        // Set win tracking boolean to false for initialisation
+        boolean hasWon = false;
+        
         // Initialise isPlayerTurn to true for first turn
         boolean isPlayerTurn = false;
+        
+        // At the very beginning of the game, output the empty grid as a reference
+        outputGrid(grid);
                 
         // ---------------------------- GAME LOOP -----------------------------
         
