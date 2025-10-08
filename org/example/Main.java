@@ -1,8 +1,6 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class Main {
     
@@ -13,7 +11,8 @@ public class Main {
         Grid grid = new Grid();
         
         // Create both human and computer player objects for the game
-        HumanPlayer player = new HumanPlayer(grid);
+        HumanPlayer player      = new HumanPlayer(grid);
+        ComputerPlayer computer = new ComputerPlayer(grid, player.getPlayerSymbol());
         
         // Holds the available moves on the grid
         ArrayList<Integer> availableMoves = new ArrayList<Integer>();
@@ -22,16 +21,10 @@ public class Main {
             availableMoves.add(i);
         }
         
-        // Give the computer the opposing symbol
-        NodeState computerSymbol = (player.getPlayerSymbol() == NodeState.X) ? NodeState.O : NodeState.X;
-        
         boolean hasWon = false;
         
         // Initialise isPlayerTurn to false for first turn (computer plays first)
-        boolean isPlayerTurn = false;
-        
-        // At the very beginning of the game, output the empty grid as a reference
-        
+        boolean isPlayerTurn = false;        
                 
         // ---------------------------- GAME LOOP -----------------------------
         
@@ -44,27 +37,11 @@ public class Main {
                 hasWon = grid.detectWin(player.getPlayerSymbol());
             }
             else {
-                // Computer's turn!
-                System.out.println("The computer is now taking its turn...");
-                try {
-                    TimeUnit.SECONDS.sleep(3);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                
-                // Computer will decide randomly based on the available positions (it's very smart)
-                Random random = new Random();
-                int randomIndex = random.nextInt(availableMoves.size());
-                int computerMove = availableMoves.get(randomIndex);
-                availableMoves.remove(randomIndex);
-                
-                grid.updateGridWithMove(computerMove, computerSymbol);
-                
-                grid.displayGrid();
+                computer.makeMove(availableMoves);
                 
                 isPlayerTurn = true;
                 
-                hasWon = grid.detectWin(computerSymbol);
+                hasWon = grid.detectWin(computer.getSymbol());
             }
         }
         
