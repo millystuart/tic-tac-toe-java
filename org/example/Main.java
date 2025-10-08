@@ -1,12 +1,12 @@
 package org.example;
 
-
+/**
+ * Creates a new instance of the GameController class and runs the game loop.
+ */
 public class Main {
     
     public static void main(String[] args) {
-        // Define new GameController object
         GameController gameController = new GameController();
-        
         gameController.gameLoop();
     }
 }

@@ -1,13 +1,17 @@
 package org.example;
 
 /**
- * Handles all operations pertaining to the grid.
+ * Handles all operations pertaining to the grid. The grid is what holds the state of the game at any given point.
  */
 public class Grid {
-    // Holds the current state of the game
+    
     private NodeState[][] grid;
     
+    /**
+     * Constructor.
+     */
     public Grid() {
+        // Define grid as a 2D array of NodeStates with nine slots, each initialised to EMPTY
         grid = new NodeState[3][3];
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -16,8 +20,13 @@ public class Grid {
         }
     }
     
-    public void updateGridWithMove(int move, NodeState symbol) {
-        switch (move) {
+    /**
+     * Updates the grid with a given position to be placed on the grid.
+     * @param position the integer value representing a location on the grid.
+     * @param symbol the NodeState to be placed in the position.
+     */
+    public void updateGridWithMove(int position, NodeState symbol) {
+        switch (position) {
             case 1:
                 grid[0][0] = symbol;
                 break;
@@ -47,11 +56,12 @@ public class Grid {
                 break;
         }
     }
+    
     /**
      * Checks each row, column and diagonal to see if a passed symbol occurs three times in a row.
-     * @param grid grid holding the current game state
-     * @param symbol the symbol of the last player who made a move
-     * @return true if a win is detected, or false otherwise
+     * @param grid grid holding the current game state.
+     * @param symbol the symbol of the last player who made a move.
+     * @return true if a win is detected, or false otherwise.
      */
     public boolean detectWin(NodeState symbol) {
         // Start by checking every row and column of the grid
@@ -69,7 +79,6 @@ public class Grid {
     
     /**
      * Outputs a provided grid to the console.
-     * @param grid current game state to be outputted
      */
     public void displayGrid() {
         // Convert grid to correct char[][] format
@@ -84,8 +93,7 @@ public class Grid {
     
     /**
      * Helper function to convert a grid of NodeStates to a grid of chars for outputting to the console.
-     * @param grid the NodeState grid to be converted
-     * @return the converted NodeState grid as a 2D-array of chars
+     * @return the converted NodeState grid as a 2D-array of chars.
      */
     private char[][] nodestateToCharGrid() {
         char[][] charGrid = {{' ', ' ', ' '},
@@ -106,8 +114,6 @@ public class Grid {
                 }
             }
         }
-        
         return charGrid;
-    }
-    
+    } 
 }
