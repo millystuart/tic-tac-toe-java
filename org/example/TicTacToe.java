@@ -11,24 +11,30 @@ public class TicTacToe {
     final static char[][] GRID_INDEXES = {{'1', '2', '3'},
                                           {'4', '5', '6'},
                                           {'7', '8', '9'}};
+    
+    // Define an enum to hold all of the possible states a grid node can be in
+    enum NodeState {
+        X,
+        O,
+        EMPTY
+    }
 
     public static void main(String[] args) {
-        
         // ----------------------- INITIALISATION STEPS -----------------------
 
         // Define 2D array that will hold the state of the grid.
         // A grid node can hold X, O or ' '
-        char[][] grid = {{' ', ' ', ' '},
-                         {' ', ' ', ' '},
-                         {' ', ' ', ' '}};
+        NodeState[][] grid = {{NodeState.EMPTY, NodeState.EMPTY, NodeState.EMPTY},
+                              {NodeState.EMPTY, NodeState.EMPTY, NodeState.EMPTY},
+                              {NodeState.EMPTY, NodeState.EMPTY, NodeState.EMPTY}};
                 
         // Define scanner to take user input
         Scanner scanner = new Scanner(System.in);
         
         // Define symbol player will use to play
-        char playerSymbol = choosePlayerSymbol(scanner);
+        NodeState playerSymbol = choosePlayerSymbol(scanner);
         // Give the computer the opposing symbol
-        char computerSymbol = (playerSymbol == 'X') ? 'O' : 'X';
+        NodeState computerSymbol = (playerSymbol == NodeState.X) ? NodeState.O : NodeState.X;
         
         // Define ArrayList to hold the open moves on the grid (all are available by default
         ArrayList<Integer> availableMoves = new ArrayList<Integer>();
@@ -37,14 +43,14 @@ public class TicTacToe {
             availableMoves.add(i);
         }
         
-        // Set win tracking boolean to false for initialisation
+        // Set win-tracking boolean to false for initialisation
         boolean hasWon = false;
         
         // Initialise isPlayerTurn to true for first turn
         boolean isPlayerTurn = false;
         
         // At the very beginning of the game, output the empty grid as a reference
-        outputGrid(grid);
+        outputGrid(nodestateToCharGrid(grid));
                 
         // ---------------------------- GAME LOOP -----------------------------
         
@@ -57,7 +63,7 @@ public class TicTacToe {
                 
                 updateGridWithMove(grid, playerMove, playerSymbol); 
                 
-                outputGrid(grid);
+                outputGrid(nodestateToCharGrid(grid));
                 
                 isPlayerTurn = false;
                 
@@ -80,7 +86,7 @@ public class TicTacToe {
                 
                 updateGridWithMove(grid, computerMove, computerSymbol);
                 
-                outputGrid(grid);
+                outputGrid(nodestateToCharGrid(grid));
                 
                 isPlayerTurn = true;
                 
@@ -104,16 +110,16 @@ public class TicTacToe {
         scanner.close();
     }
     
-    private static boolean checkForWin(char[][] grid, char symbol) {
+    private static boolean checkForWin(NodeState[][] grid, NodeState symbol) {
         // Start by checking every row and column of the grid
         for (int i = 0; i < 3; i++) {
-            if (grid[i][0] == symbol && grid[i][1] == symbol && grid[i][2] == symbol) return true;
-            if (grid[0][i] == symbol && grid[1][i] == symbol && grid[2][i] == symbol) return true;
+            if (grid[i][0].equals(symbol) && grid[i][1].equals(symbol) && grid[i][2].equals(symbol)) return true;
+            if (grid[0][i].equals(symbol) && grid[1][i].equals(symbol) && grid[2][i].equals(symbol)) return true;
         }
         
         // Finally, check diagonals, both with positive gradient and negative
-        if (grid[0][0] == symbol && grid[1][1] == symbol && grid[2][2] == symbol) return true;
-        if (grid[0][2] == symbol && grid[1][1] == symbol && grid[2][0] == symbol) return true;
+        if (grid[0][0].equals(symbol) && grid[1][1].equals(symbol) && grid[2][2].equals(symbol)) return true;
+        if (grid[0][2].equals(symbol) && grid[1][1].equals(symbol) && grid[2][0].equals(symbol)) return true;
         
         return false;
     }
@@ -152,7 +158,7 @@ public class TicTacToe {
         return move;
     }
     
-    private static void updateGridWithMove(char[][] grid, int move, char symbol) {
+    private static void updateGridWithMove(NodeState[][] grid, int move, NodeState symbol) {
         switch (move) {
             case 1:
                 grid[0][0] = symbol;
@@ -184,7 +190,7 @@ public class TicTacToe {
         }
     }
     
-    private static char choosePlayerSymbol(Scanner scanner) {
+    private static NodeState choosePlayerSymbol(Scanner scanner) {
         System.out.println("Would you like to play as a nought (O) or a cross (X)?");
         String userInput = scanner.nextLine().trim().toUpperCase();
         
@@ -193,7 +199,31 @@ public class TicTacToe {
             return choosePlayerSymbol(scanner);
         }
         
-        return userInput.charAt(0);
+        NodeState desiredSymbol = (userInput.equals("X")) ? NodeState.X : NodeState.O;
+        return desiredSymbol;
+    }
+    
+    private static char[][] nodestateToCharGrid(NodeState[][] grid) {
+        char[][] charGrid = {{' ', ' ', ' '},
+                             {' ', ' ', ' '},
+                             {' ', ' ', ' '}};
+        
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                switch (grid[row][col]) {
+                    case X:
+                        charGrid[row][col] = 'X';
+                        break;
+                    case O:
+                        charGrid[row][col] = 'O';
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        
+        return charGrid;
     }
     
     private static void outputGrid(char[][] grid) {
