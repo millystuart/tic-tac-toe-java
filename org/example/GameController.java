@@ -69,7 +69,7 @@ public class GameController {
     /**
      * Helper function used to initialise the remainingMoves ArrayList with numbers between 1-9 (since all 9 nodes are
      * available at the beginning of the game).
-     * @return An ArrayList populated with integers 1-9.
+     * @return an ArrayList populated with integers 1-9.
      */
     private ArrayList<Integer> populateRemainingMoves() {
         ArrayList<Integer> initialisedRemainingMoves = new ArrayList<Integer>();
